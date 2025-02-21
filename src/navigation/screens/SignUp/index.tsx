@@ -1,13 +1,13 @@
-import { Alert, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { isEmailValid, isPasswordValid } from "../../../Validation/Valid";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { isEmailInvalid, isPasswordInvalid } from "../../../Validation/Valid";
 
-import ButtonComponent from "../../../Components/ButtonComponent";
 import { Feather } from "@expo/vector-icons";
-import { TextInput } from "react-native-paper";
-import axios from "axios";
-import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { TextInput } from "react-native-paper";
+import ButtonComponent from "../../../Components/ButtonComponent";
+import { styles } from "./styles";
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
@@ -33,7 +33,7 @@ const SignUpScreen = () => {
           }
         )
         .then((res) => {
-          console.log(res.data, "login response");
+          console.log(res.data, "signup response");
           Alert.alert(res?.data?.message, "", [
             {
               text: "Ok",
@@ -71,9 +71,9 @@ const SignUpScreen = () => {
         onChangeText={(text) => {
           setEmail(text?.toLowerCase());
         }}
-        error={isEmailValid(email) ? (email === "" ? false : true) : false}
+        error={isEmailInvalid(email) ? (email === "" ? false : true) : false}
       />
-      {isEmailValid(email) && email !== "" && (
+      {isEmailInvalid(email) && email !== "" && (
         <Text style={styles.error}>Please enter a valid email</Text>
       )}
       <View>
@@ -89,7 +89,7 @@ const SignUpScreen = () => {
             setPassword(text);
           }}
           error={
-            isPasswordValid(password) ? (password === "" ? false : true) : false
+            isPasswordInvalid(password) ? (password === "" ? false : true) : false
           }
         />
         <TouchableOpacity
@@ -105,7 +105,7 @@ const SignUpScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      {isPasswordValid(password) && password !== "" && (
+      {isPasswordInvalid(password) && password !== "" && (
         <Text style={styles.error}>
           The password must be at least 8 characters long and contain lowercase
           and capital letters and numbers.
@@ -114,7 +114,7 @@ const SignUpScreen = () => {
       <ButtonComponent
         title="Sign Up"
         onPress={handleSignUp}
-        disabled={name === '' || isEmailValid(email) || isPasswordValid(password) }
+        disabled={name === '' || isEmailInvalid(email) || isPasswordInvalid(password) }
       />
     </View>
   );

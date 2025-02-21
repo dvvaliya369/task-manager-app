@@ -34,15 +34,15 @@ It includes the following:
 - Start the development server:
 
   ```sh
-  npm start
+  npx expo start
   ```
 
 - Build and run iOS and Android development builds:
 
   ```sh
-  npm run ios
+  npx expo run:ios
   # or
-  npm run android
+  npx expo run:android
   ```
 
 - In the terminal running the development server, press `i` to open the iOS simulator, `a` to open the Android device or emulator, or `w` to open the web browser.

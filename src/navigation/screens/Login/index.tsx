@@ -1,6 +1,6 @@
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { isEmailValid, isPasswordValid } from "../../../Validation/Valid";
+import { isEmailInvalid, isPasswordInvalid } from "../../../Validation/Valid";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonComponent from "../../../Components/ButtonComponent";
@@ -64,9 +64,9 @@ const LoginScreen = () => {
         onChangeText={(text) => {
           setEmail(text?.toLowerCase());
         }}
-        error={isEmailValid(email) ? (email === "" ? false : true) : false}
+        error={isEmailInvalid(email) ? (email === "" ? false : true) : false}
       />
-      {isEmailValid(email) && email !== "" && (
+      {isEmailInvalid(email) && email !== "" && (
         <Text style={styles.error}>Please enter a valid email</Text>
       )}
       <View>
@@ -82,7 +82,7 @@ const LoginScreen = () => {
             setPassword(text);
           }}
           error={
-            isPasswordValid(password) ? (password === "" ? false : true) : false
+            isPasswordInvalid(password) ? (password === "" ? false : true) : false
           }
         />
         <TouchableOpacity
@@ -98,12 +98,20 @@ const LoginScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      {isPasswordValid(password) && password !== "" && (
+      {isPasswordInvalid(password) && password !== "" && (
         <Text style={styles.error}>
           The password must be at least 8 characters long and contain lowercase
           and capital letters and numbers.
         </Text>
       )}
+      <Text
+        style={styles.forgotPass}
+        onPress={() => {
+          navigation.navigate("ForgotPassword");
+        }}
+      >
+        Forgot Password?
+      </Text>
       <Text style={styles.text}>
         Don't have an account?
         <Text
@@ -119,7 +127,7 @@ const LoginScreen = () => {
       <ButtonComponent
         title="Login"
         onPress={handleLogin}
-        disabled={isPasswordValid(password) || isEmailValid(email)}
+        disabled={isPasswordInvalid(password) || isEmailInvalid(email)}
       />
     </View>
   );

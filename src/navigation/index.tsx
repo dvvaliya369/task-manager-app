@@ -10,6 +10,7 @@ import { AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CreateTaskScreen from "./screens/CreateTask";
 import EditTaskScreen from "./screens/EditTask";
+import ForgotPasswordScreen from "./screens/ForgotPassword";
 import LoginScreen from "./screens/Login";
 import ShowTaskScreen from "./screens/ShowTask";
 import SignUpScreen from "./screens/SignUp";
@@ -28,6 +29,15 @@ const RootStack = createNativeStackNavigator({
       screen: LoginScreen,
       options: {
         title: "Login",
+        headerTitleAlign: "center",
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: "#305f72" },
+      },
+    },
+    ForgotPassword: {
+      screen: ForgotPasswordScreen,
+      options: {
+        title: "Forgot Password",
         headerTitleAlign: "center",
         headerTintColor: "white",
         headerStyle: { backgroundColor: "#305f72" },

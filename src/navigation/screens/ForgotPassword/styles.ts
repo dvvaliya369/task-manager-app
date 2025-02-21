@@ -19,11 +19,4 @@ export const styles = StyleSheet.create({
     marginTop: 16,
   },
   registerText: { color: "#305f72" },
-  forgotPass: {
-    textAlign: "right",
-    color: "#305f72",
-    fontSize: 16,
-    fontWeight: "500",
-    marginVertical: 16,
-  },
 });
