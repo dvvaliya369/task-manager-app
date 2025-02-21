@@ -66,8 +66,8 @@ Demo assets are from [lucide.dev](https://lucide.dev/)
 
 use node version above 18.18.0
 
-[Video Link] https://drive.google.com/file/d/1esTQaxkdsT41I0mlnp4np0HjHsHdLNri/view?usp=sharing
+[Video Link] `https://drive.google.com/file/d/1esTQaxkdsT41I0mlnp4np0HjHsHdLNri/view?usp=sharing`
 
 Login Credentials:
-  Email: dharmendra@gmail.com
+  Email: `dharmendra@gmail.com`
   Password: Dharmendra@3690
