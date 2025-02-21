@@ -1,14 +1,13 @@
-import { Alert, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { isEmailInvalid, isPasswordInvalid } from "../../../Validation/Valid";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import ButtonComponent from "../../../Components/ButtonComponent";
 import { Feather } from "@expo/vector-icons";
-import { TextInput } from "react-native-paper";
-import axios from "axios";
-import { styles } from "./styles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { TextInput } from "react-native-paper";
+import ButtonComponent from "../../../Components/ButtonComponent";
+import { styles } from "./styles";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -64,11 +63,7 @@ const LoginScreen = () => {
         onChangeText={(text) => {
           setEmail(text?.toLowerCase());
         }}
-        error={isEmailInvalid(email) ? (email === "" ? false : true) : false}
       />
-      {isEmailInvalid(email) && email !== "" && (
-        <Text style={styles.error}>Please enter a valid email</Text>
-      )}
       <View>
         <TextInput
           label={"Password"}
@@ -81,9 +76,6 @@ const LoginScreen = () => {
           onChangeText={(text) => {
             setPassword(text);
           }}
-          error={
-            isPasswordInvalid(password) ? (password === "" ? false : true) : false
-          }
         />
         <TouchableOpacity
           onPress={() => {
@@ -98,12 +90,6 @@ const LoginScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      {isPasswordInvalid(password) && password !== "" && (
-        <Text style={styles.error}>
-          The password must be at least 8 characters long and contain lowercase
-          and capital letters and numbers.
-        </Text>
-      )}
       <Text
         style={styles.forgotPass}
         onPress={() => {
@@ -127,7 +113,7 @@ const LoginScreen = () => {
       <ButtonComponent
         title="Login"
         onPress={handleLogin}
-        disabled={isPasswordInvalid(password) || isEmailInvalid(email)}
+        disabled={email === '' || password === ''}
       />
     </View>
   );
