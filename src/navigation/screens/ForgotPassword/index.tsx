@@ -1,22 +1,45 @@
-import { Alert, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext, useState } from "react";
 import { isEmailInvalid, isPasswordInvalid } from "../../../Validation/Valid";
 
 import ButtonComponent from "../../../Components/ButtonComponent";
 import { Feather } from "@expo/vector-icons";
 import { TextInput } from "react-native-paper";
 import axios from "axios";
-import { styles } from "./styles";
+import { ThemeContext } from "../../../Context/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
 
 const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
+  const { colors } = useContext(ThemeContext);
 
   const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [showOldPass, setShowOldPass] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [showNewPass, setShowNewPass] = useState(false);
+
+  const styles = StyleSheet.create({
+    createtaskcontainer: {
+      flex: 1,
+      margin: 10,
+      padding: 10,
+      top: 20,
+      backgroundColor: colors.background,
+    },
+    error: {
+      color: colors.error,
+      marginTop: 6,
+    },
+    text: {
+      textAlign: "center",
+      color: colors.text,
+      fontSize: 16,
+      fontWeight: "500",
+      marginTop: 16,
+    },
+    registerText: { color: colors.primary },
+  });
 
   const handleResetPass = async () => {
     try {
@@ -57,8 +80,6 @@ const ForgotPasswordScreen = () => {
         value={email}
         mode="outlined"
         style={{ marginTop: 30 }}
-        activeUnderlineColor="#305f72"
-        activeOutlineColor="#305f72"
         onChangeText={(text) => {
           setEmail(text?.toLowerCase());
         }}
@@ -74,8 +95,6 @@ const ForgotPasswordScreen = () => {
           mode="outlined"
           secureTextEntry={!showOldPass}
           style={{ marginTop: 30 }}
-          activeUnderlineColor="#305f72"
-          activeOutlineColor="#305f72"
           onChangeText={(text) => {
             setOldPassword(text);
           }}
@@ -95,7 +114,7 @@ const ForgotPasswordScreen = () => {
           <Feather
             name={!showOldPass ? "eye-off" : "eye"}
             size={24}
-            color="#305f72"
+            color={colors.primary}
             style={{ position: "absolute", right: 12, bottom: 12 }}
           />
         </TouchableOpacity>
@@ -113,8 +132,6 @@ const ForgotPasswordScreen = () => {
           mode="outlined"
           secureTextEntry={!showNewPass}
           style={{ marginTop: 30 }}
-          activeUnderlineColor="#305f72"
-          activeOutlineColor="#305f72"
           onChangeText={(text) => {
             setNewPassword(text);
           }}
@@ -134,7 +151,7 @@ const ForgotPasswordScreen = () => {
           <Feather
             name={!showNewPass ? "eye-off" : "eye"}
             size={24}
-            color="#305f72"
+            color={colors.primary}
             style={{ position: "absolute", right: 12, bottom: 12 }}
           />
         </TouchableOpacity>

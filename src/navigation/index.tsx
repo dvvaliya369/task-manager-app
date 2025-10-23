@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native";
 
 import AllTasksScreen from "./screens/AllTasks";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CreateTaskScreen from "./screens/CreateTask";
 import EditTaskScreen from "./screens/EditTask";
@@ -16,6 +16,8 @@ import ShowTaskScreen from "./screens/ShowTask";
 import SignUpScreen from "./screens/SignUp";
 import SplashScreen from "./screens/Splash";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useContext } from "react";
+import { ThemeContext } from "../Context/ThemeContext";
 
 const RootStack = createNativeStackNavigator({
   screens: {
@@ -27,88 +29,121 @@ const RootStack = createNativeStackNavigator({
     },
     Login: {
       screen: LoginScreen,
-      options: {
-        title: "Login",
-        headerTitleAlign: "center",
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: "#305f72" },
+      options: () => {
+        const { colors } = useContext(ThemeContext);
+        return {
+          title: "Login",
+          headerTitleAlign: "center",
+          headerTintColor: colors.headerText,
+          headerStyle: { backgroundColor: colors.headerBackground },
+        };
       },
     },
     ForgotPassword: {
       screen: ForgotPasswordScreen,
-      options: {
-        title: "Forgot Password",
-        headerTitleAlign: "center",
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: "#305f72" },
+      options: () => {
+        const { colors } = useContext(ThemeContext);
+        return {
+          title: "Forgot Password",
+          headerTitleAlign: "center",
+          headerTintColor: colors.headerText,
+          headerStyle: { backgroundColor: colors.headerBackground },
+        };
       },
     },
     SignUp: {
       screen: SignUpScreen,
-      options: {
-        title: "Sign Up",
-        headerTitleAlign: "center",
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: "#305f72" },
+      options: () => {
+        const { colors } = useContext(ThemeContext);
+        return {
+          title: "Sign Up",
+          headerTitleAlign: "center",
+          headerTintColor: colors.headerText,
+          headerStyle: { backgroundColor: colors.headerBackground },
+        };
       },
     },
     AllTasks: {
       screen: AllTasksScreen,
-      options: ({ navigation }) => ({
-        title: "All Tasks",
-        headerTitleAlign: "center",
-        headerTintColor: "white",
-        headerRight: (props) => (
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert("Are you sure you want to log out?", "", [
-                {
-                  text: "Yes",
-                  style: "cancel",
-                  onPress: () => {
-                    AsyncStorage.removeItem("token");
-                    navigation.navigate("Splash");
+      options: ({ navigation }) => {
+        const { colors, theme, toggleTheme } = useContext(ThemeContext);
+        return {
+          title: "All Tasks",
+          headerTitleAlign: "center",
+          headerTintColor: colors.headerText,
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={toggleTheme}
+              style={{ marginLeft: 10 }}
+            >
+              <Ionicons
+                name={theme === "light" ? "moon" : "sunny"}
+                size={24}
+                color={colors.headerText}
+              />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => {
+                Alert.alert("Are you sure you want to log out?", "", [
+                  {
+                    text: "Yes",
+                    style: "cancel",
+                    onPress: () => {
+                      AsyncStorage.removeItem("token");
+                      navigation.navigate("Splash");
+                    },
                   },
-                },
-                {
-                  text: "No",
-                  onPress: () => console.log("cancel Pressed"),
-                  style: "destructive",
-                },
-              ]);
-            }}
-          >
-            <AntDesign name="logout" size={24} color="white" />
-          </TouchableOpacity>
-        ),
-        headerStyle: { backgroundColor: "#305f72" },
-      }),
+                  {
+                    text: "No",
+                    onPress: () => console.log("cancel Pressed"),
+                    style: "destructive",
+                  },
+                ]);
+              }}
+            >
+              <AntDesign name="logout" size={24} color={colors.headerText} />
+            </TouchableOpacity>
+          ),
+          headerStyle: { backgroundColor: colors.headerBackground },
+        };
+      },
     },
     CreateTask: {
       screen: CreateTaskScreen,
-      options: {
-        title: "New Task",
-        headerTitleAlign: "center",
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: "#305f72" },
+      options: () => {
+        const { colors } = useContext(ThemeContext);
+        return {
+          title: "New Task",
+          headerTitleAlign: "center",
+          headerTintColor: colors.headerText,
+          headerStyle: { backgroundColor: colors.headerBackground },
+        };
       },
     },
     EditTask: {
       screen: EditTaskScreen,
-      options: {
-        title: "Edit Task",
-        headerTitleAlign: "center",
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: "#305f72" },
+      options: () => {
+        const { colors } = useContext(ThemeContext);
+        return {
+          title: "Edit Task",
+          headerTitleAlign: "center",
+          headerTintColor: colors.headerText,
+          headerStyle: { backgroundColor: colors.headerBackground },
+        };
       },
     },
     ShowTask: {
       screen: ShowTaskScreen,
-      options: {
-        title: "Task",
-        headerTitleAlign: "center",
-        headerTintColor: "white",
-        headerStyle: { backgroundColor: "#305f72" },
+      options: () => {
+        const { colors } = useContext(ThemeContext);
+        return {
+          title: "Task",
+          headerTitleAlign: "center",
+          headerTintColor: colors.headerText,
+          headerStyle: { backgroundColor: colors.headerBackground },
+        };
       },
     },
   },

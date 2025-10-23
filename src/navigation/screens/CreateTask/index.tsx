@@ -1,19 +1,30 @@
-import { Alert, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import React, { useContext, useState } from "react";
 
 import { AuthContext } from "../../../Context/AuthContext";
+import { ThemeContext } from "../../../Context/ThemeContext";
 import ButtonComponent from "../../../Components/ButtonComponent";
 import { TextInput } from "react-native-paper";
 import axios from "axios";
-import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
 const CreateTaskScreen = () => {
   const navigation = useNavigation();
   const { token } = useContext(AuthContext);
+  const { colors } = useContext(ThemeContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const styles = StyleSheet.create({
+    createtaskcontainer: {
+      flex: 1,
+      margin: 10,
+      padding: 10,
+      top: 20,
+      backgroundColor: colors.background,
+    },
+  });
 
   const handleCreateTask = async () => {
     try {
@@ -54,8 +65,6 @@ const CreateTaskScreen = () => {
         label={"Title"}
         value={title}
         mode="outlined"
-        activeUnderlineColor="#305f72"
-        activeOutlineColor="#305f72"
         onChangeText={(text) => {
           setTitle(text);
         }}
@@ -67,8 +76,6 @@ const CreateTaskScreen = () => {
         style={{ marginTop: 30 }}
         numberOfLines={3}
         multiline={true}
-        activeUnderlineColor="#305f72"
-        activeOutlineColor="#305f72"
         onChangeText={(text) => {
           setDescription(text);
         }}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Alert, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,13 +7,43 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { TextInput } from "react-native-paper";
 import ButtonComponent from "../../../Components/ButtonComponent";
-import { styles } from "./styles";
+import { ThemeContext } from "../../../Context/ThemeContext";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const { colors } = useContext(ThemeContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
+
+  const styles = StyleSheet.create({
+    createtaskcontainer: {
+      flex: 1,
+      margin: 10,
+      padding: 10,
+      top: 20,
+      backgroundColor: colors.background,
+    },
+    error: {
+      color: colors.error,
+      marginTop: 6,
+    },
+    text: {
+      textAlign: "center",
+      color: colors.text,
+      fontSize: 16,
+      fontWeight: "500",
+      marginTop: 16,
+    },
+    registerText: { color: colors.primary },
+    forgotPass: {
+      textAlign: "right",
+      color: colors.primary,
+      fontSize: 16,
+      fontWeight: "500",
+      marginVertical: 16,
+    },
+  });
 
   const handleLogin = async () => {
     try {
@@ -58,8 +88,6 @@ const LoginScreen = () => {
         value={email}
         mode="outlined"
         style={{ marginTop: 30 }}
-        activeUnderlineColor="#305f72"
-        activeOutlineColor="#305f72"
         onChangeText={(text) => {
           setEmail(text?.toLowerCase());
         }}
@@ -71,8 +99,6 @@ const LoginScreen = () => {
           mode="outlined"
           secureTextEntry={!showPass}
           style={{ marginTop: 30 }}
-          activeUnderlineColor="#305f72"
-          activeOutlineColor="#305f72"
           onChangeText={(text) => {
             setPassword(text);
           }}
@@ -85,7 +111,7 @@ const LoginScreen = () => {
           <Feather
             name={!showPass ? "eye-off" : "eye"}
             size={24}
-            color="#305f72"
+            color={colors.primary}
             style={{ position: "absolute", right: 12, bottom: 12 }}
           />
         </TouchableOpacity>

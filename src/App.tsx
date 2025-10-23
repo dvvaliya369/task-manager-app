@@ -3,6 +3,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import { Asset } from 'expo-asset';
 import { AuthContextProvider } from './Context/AuthContext';
+import { ThemeContextProvider } from './Context/ThemeContext';
 import { Navigation } from './navigation';
 import { Assets as NavigationAssets } from '@react-navigation/elements';
 
@@ -16,18 +17,20 @@ SplashScreen.preventAutoHideAsync();
 
 export function App() {
   return (
-    <AuthContextProvider>
-    <Navigation
-      linking={{
-        enabled: 'auto',
-        prefixes: [
-          'taskmanager://',
-        ],
-      }}
-      onReady={() => {
-        SplashScreen.hideAsync();
-      }}
-    />
-    </AuthContextProvider>
+    <ThemeContextProvider>
+      <AuthContextProvider>
+        <Navigation
+          linking={{
+            enabled: 'auto',
+            prefixes: [
+              'taskmanager://',
+            ],
+          }}
+          onReady={() => {
+            SplashScreen.hideAsync();
+          }}
+        />
+      </AuthContextProvider>
+    </ThemeContextProvider>
   );
 }

@@ -9,7 +9,10 @@ interface ProviderProps {
   children: ReactNode;
 }
 
-export const AuthContext = createContext<AuthContextInterface>(undefined);
+export const AuthContext = createContext<AuthContextInterface>({
+  token: null,
+  setToken: () => {},
+});
 
 export const AuthContextProvider = (props: ProviderProps) => {
   const { children } = props;
